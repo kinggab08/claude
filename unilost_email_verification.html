@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniLost - Email Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            min-height: 600px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .left-panel {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .logo::before {
+            content: '🎓';
+            font-size: 60px;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: '📍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+        }
+
+        .right-panel {
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .verification-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .verification-icon-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .verification-icon-circle::before {
+            content: '🎓';
+            font-size: 35px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        .verification-icon-circle::after {
+            content: '📍';
+            font-size: 30px;
+            color: white;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .form-subtitle {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4facfe;
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 50px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-message {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #c53030;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                min-height: auto;
+            }
+
+            .left-panel {
+                padding: 30px 20px;
+                min-height: 250px;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+
+            .logo::before {
+                font-size: 40px;
+                top: -10px;
+                right: -10px;
+            }
+
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-icon::after {
+                font-size: 25px;
+            }
+
+            .right-panel {
+                padding: 30px 25px;
+            }
+
+            .verification-icon-circle {
+                width: 60px;
+                height: 60px;
+            }
+
+            .verification-icon-circle::before {
+                font-size: 25px;
+                top: -6px;
+                right: -6px;
+            }
+
+            .verification-icon-circle::after {
+                font-size: 20px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .form-subtitle {
+                font-size: 14px;
+            }
+
+            .form-input {
+                padding: 16px 45px;
+                font-size: 16px;
+            }
+
+            .input-icon {
+                font-size: 16px;
+            }
+
+            .submit-btn {
+                padding: 16px 30px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .right-panel {
+                padding: 25px 20px;
+            }
+
+            .form-input {
+                padding: 14px 40px;
+                font-size: 15px;
+            }
+
+            .submit-btn {
+                padding: 15px 25px;
+                font-size: 15px;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                max-width: 700px;
+            }
+
+            .left-panel {
+                padding: 20px;
+                min-height: 300px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 10px;
+            }
+
+            .logo::before {
+                font-size: 30px;
+                top: -8px;
+                right: -8px;
+            }
+
+            .right-panel {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="verification-icon">
+                <div class="verification-icon-circle"></div>
+            </div>
+
+            <div class="form-header">
+                <h1 class="form-title">Verify</h1>
+                <p class="form-subtitle">Reset your password through the link you will receive in your email</p>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                ✅ Verification email sent successfully!
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                ⚠️ Please enter a valid email address
+            </div>
+
+            <form id="verificationForm">
+                <div class="form-group">
+                    <div class="input-container">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" class="form-input" placeholder="Email Address" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    📧 Submit
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('verificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('input[type="email"]').value;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide all messages first
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                errorMessage.style.display = 'flex';
+                errorMessage.textContent = '⚠️ Please enter a valid email address';
+                return;
+            }
+            
+            // Simulate verification process
+            const button = document.querySelector('.submit-btn');
+            button.textContent = 'Sending Email...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                successMessage.style.display = 'flex';
+                successMessage.textContent = '✅ Verification email sent successfully! Check your inbox.';
+                button.textContent = '📧 Submit';
+                button.disabled = false;
+                
+                // Clear the form
+                this.querySelector('input[type="email"]').value = '';
+                
+                // Show additional message after success
+                setTimeout(() => {
+                    alert('Please check your email and click the verification link to reset your password.');
+                }, 2000);
+            }, 2000);
+        });
+
+        // Add floating animation to form inputs
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add subtle animation to verification icon on load
+        window.addEventListener('load', function() {
+            const icon = document.querySelector('.verification-icon-circle');
+            icon.style.animation = 'slideUp 0.8s ease-out 0.3s both';
+        });
+    </script>
+</body>
+</html>

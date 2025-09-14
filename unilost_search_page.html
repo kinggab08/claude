@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniLost - Lost & Found Items</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5a67d8;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #5a67d8, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: #5a67d8;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #5a67d8, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 2rem;
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #5a67d8;
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+        }
+
+        .filter-btn {
+            padding: 1rem 1.5rem;
+            border: 2px solid #5a67d8;
+            background: transparent;
+            color: #5a67d8;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            background: #5a67d8;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Category Filter */
+        .category-filter {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .select-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .select-actions button {
+            background: none;
+            border: none;
+            color: #5a67d8;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            background: #f7fafc;
+        }
+
+        .category-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #5a67d8;
+            cursor: pointer;
+        }
+
+        .category-name {
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-clear {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-clear:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-show {
+            background: #5a67d8;
+            color: white;
+        }
+
+        .btn-show:hover {
+            background: #4c51bf;
+            transform: translateY(-1px);
+        }
+
+        /* Items Grid */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f7fafc, #edf2f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .item-image img {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .item-status {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-lost {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .status-found {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        .item-details {
+            padding: 1.5rem;
+        }
+
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-meta {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .view-details-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(45deg, #5a67d8, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(90, 103, 216, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .pagination button {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #4a5568;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            border-color: #5a67d8;
+            color: #5a67d8;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Social Link */
+        .social-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .facebook-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .facebook-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .search-controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .category-filter {
+                padding: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-left: 4px solid #5a67d8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <div class="logo">
+                    <div class="logo-icon">🔍</div>
+                    <span>UniLost</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="unilost_landing_page.html" onclick="showPage('home')">Home</a></li>
+                    <li><a href="unilost_search_page.html" class="active" onclick="showPage('items')">Lost Items</a></li>
+                    <li><a href="unilost_login.html" onclick="showPage('login')">Login</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="page-title">Lost & Found Items</h1>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-controls">
+                    <div class="search-box">
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            placeholder="Search for items by name, description, or location..."
+                            id="searchInput"
+                        >
+                        <div class="search-icon">🔍</div>
+                    </div>
+                    <button class="filter-btn" onclick="toggleFilter()">
+                        📋 Filter
+                    </button>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="category-filter" id="categoryFilter" style="display: none;">
+                    <div class="category-header">
+                        <h3 class="category-title">Select Category</h3>
+                        <div class="select-actions">
+                            <button onclick="selectAllCategories()">Select all</button>
+                            <button onclick="resetCategories()">Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div class="categories">
+                        <div class="category-item">
+                            <input type="checkbox" class="category-checkbox" id="electronics" checked>
+                            <label for="electronics" class="category-name">📱 Electronics</label>
+                        </div>
+                        <div class="category-item">
+                            <input type="checkbox" class="category-checkbox" id="clothing">
+                            <label for="clothing" class="category-name">👕 Clothing & Accessories</label>
+                        </div>
+                        <div class="category-item">
+                            <input type="checkbox" class="category-checkbox" id="identification">
+                            <label for="identification" class="category-name">🆔 Identification & Cards</label>
+                        </div>
+                        <div class="category-item">
+                            <input type="checkbox" class="category-checkbox" id="books">
+                            <label for="books" class="category-name">📚 Books</label>
+                        </div>
+                        <div class="category-item">
+                            <input type="checkbox" class="category-checkbox" id="wallets">
+                            <label for="wallets" class="category-name">💳 Wallets</label>
+                        </div>
+                        <div class="category-item">
+                            <input type="checkbox" class="category-checkbox" id="others">
+                            <label for="others" class="category-name">📦 Others</label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button class="btn btn-clear" onclick="clearFilters()">Clear</button>
+                        <button class="btn btn-show" onclick="applyFilters()">Show Results</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Searching items...</p>
+            </div>
+
+            <!-- Items Grid -->
+            <div class="items-grid" id="itemsGrid">
+                <!-- Phone -->
+                <div class="item-card" data-category="electronics">
+                    <div class="item-image">
+                        <div class="item-status status-lost">Lost</div>
+                        <div style="font-size: 4rem;">📱</div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">iPhone 13 Pro</h3>
+                        <p class="item-meta">Lost on Jan 15, 2025 • Library Building</p>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Bracelet -->
+                <div class="item-card" data-category="clothing">
+                    <div class="item-image">
+                        <div class="item-status status-found">Found</div>
+                        <div style="font-size: 4rem;">📿</div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Gold Bracelet</h3>
+                        <p class="item-meta">Found on Jan 14, 2025 • Student Center</p>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Wallet -->
+                <div class="item-card" data-category="wallets">
+                    <div class="item-image">
+                        <div class="item-status status-found">Found</div>
+                        <div style="font-size: 4rem;">👛</div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Brown Leather Wallet</h3>
+                        <p class="item-meta">Found on Jan 13, 2025 • Cafeteria</p>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Shoes -->
+                <div class="item-card" data-category="clothing">
+                    <div class="item-image">
+                        <div class="item-status status-lost">Lost</div>
+                        <div style="font-size: 4rem;">👟</div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Nike Running Shoes</h3>
+                        <p class="item-meta">Lost on Jan 12, 2025 • Gymnasium</p>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- ID -->
+                <div class="item-card" data-category="identification">
+                    <div class="item-image">
+                        <div class="item-status status-found">Found</div>
+                        <div style="font-size: 4rem;">🆔</div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Student ID Card</h3>
+                        <p class="item-meta">Found on Jan 11, 2025 • Main Hall</p>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Book -->
+                <div class="item-card" data-category="books">
+                    <div class="item-image">
+                        <div class="item-status status-lost">Lost</div>
+                        <div style="font-size: 4rem;">📖</div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Physics Textbook</h3>
+                        <p class="item-meta">Lost on Jan 10, 2025 • Science Building</p>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button onclick="previousPage()" id="prevBtn">Previous</button>
+                <span>Page 1 of 3</span>
+                <button onclick="nextPage()" id="nextBtn">Next</button>
+            </div>
+
+            <!-- Social Link -->
+            <div class="social-link">
+                <a href="#" class="facebook-btn">
+                    📘 Visit Us On Facebook
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Filter toggle
+        function toggleFilter() {
+            const filter = document.getElementById('categoryFilter');
+            filter.style.display = filter.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Category functions
+        function selectAllCategories() {
+            const checkboxes = document.querySelectorAll('.category-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+        }
+
+        function resetCategories() {
+            const checkboxes = document.querySelectorAll('.category-checkbox');
+            checkboxes.forEach(cb => cb.checked = false);
+            document.getElementById('electronics').checked = true;
+        }
+
+        function clearFilters() {
+            resetCategories();
+            document.getElementById('searchInput').value = '';
+        }
+
+        function applyFilters() {
+            const loading = document.getElementById('loading');
+            const itemsGrid = document.getElementById('itemsGrid');
+            
+            // Show loading
+            loading.style.display = 'block';
+            itemsGrid.style.display = 'none';
+            
+            // Get selected categories
+            const selectedCategories = [];
+            const checkboxes = document.querySelectorAll('.category-checkbox:checked');
+            checkboxes.forEach(cb => selectedCategories.push(cb.id));
+            
+            // Get search term
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Simulate loading
+            setTimeout(() => {
+                // Filter items
+                const allItems = document.querySelectorAll('.item-card');
+                allItems.forEach(item => {
+                    const category = item.dataset.category;
+                    const title = item.querySelector('.item-title').textContent.toLowerCase();
+                    const meta = item.querySelector('.item-meta').textContent.toLowerCase();
+                    
+                    const matchesCategory = selectedCategories.includes(category);
+                    const matchesSearch = !searchTerm || title.includes(searchTerm) || meta.includes(searchTerm);
+                    
+                    item.style.display = (matchesCategory && matchesSearch) ? 'block' : 'none';
+                });
+                
+                // Hide loading, show results
+                loading.style.display = 'none';
+                itemsGrid.style.display = 'grid';
+                
+                // Hide filter panel
+                document.getElementById('categoryFilter').style.display = 'none';
+            }, 1000);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const allItems = document.querySelectorAll('.item-card');
+            
+            allItems.forEach(item => {
+                const title = item.querySelector('.item-title').textContent.toLowerCase();
+                const meta = item.querySelector('.item-meta').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || meta.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Pagination functions
+        let currentPage = 1;
+        const totalPages = 3;
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            document.querySelector('.pagination span').textContent = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        // Navigation functions
+        function showPage(page) {
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to clicked link
+            event.target.classList.add('active');
+            
+            console.log(`Navigating to ${page} page`);
+        }
+
+        // Initialize pagination
+        updatePagination();
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
