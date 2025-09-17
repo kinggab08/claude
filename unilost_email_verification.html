@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniLost - Email Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        :root {
+           --bg: #EBF3FA;
+           --blue: #4B8FC3;
+           --secBlue: #73BDFF;
+           --mBG: #FFFFFF;
+           --mainText: #333333;
+           --secText: #828282;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,8 +23,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--mBG);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -22,7 +33,7 @@
         }
 
         .container {
-            background: white;
+            background: var(--mBG);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -46,13 +57,13 @@
         }
 
         .left-panel {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: var(--mBG);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             padding: 40px;
-            color: white;
+            color: var(--mBG);
             position: relative;
             overflow: hidden;
         }
@@ -64,7 +75,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(75,143,195,0.1)"/></svg>') repeat;
             animation: float 20s linear infinite;
         }
 
@@ -73,48 +84,14 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        .logo-container {
+        .main-logo {
+            width: 80%;
+            max-width: 350px;
+            height: auto;
+            object-fit: contain;
+            display: block;
             position: relative;
             z-index: 2;
-            text-align: center;
-        }
-
-        .logo {
-            width: 150px;
-            height: 150px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .logo::before {
-            content: '🎓';
-            font-size: 60px;
-            position: absolute;
-            top: -15px;
-            right: -15px;
-        }
-
-        .logo-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .logo-icon::after {
-            content: '📍';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 40px;
         }
 
         .right-panel {
@@ -122,6 +99,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background-color: var(--bg);
         }
 
         .verification-icon {
@@ -129,31 +107,9 @@
             margin-bottom: 30px;
         }
 
-        .verification-icon-circle {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
-        }
-
-        .verification-icon-circle::before {
-            content: '🎓';
-            font-size: 35px;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-        }
-
-        .verification-icon-circle::after {
-            content: '📍';
-            font-size: 30px;
-            color: white;
+        .verification-icon .fa-circle-check {
+            font-size: 80px;
+            color: var(--blue);
         }
 
         .form-header {
@@ -163,13 +119,16 @@
 
         .form-title {
             font-size: 32px;
-            color: #333;
+            color: var(--blue);
             margin-bottom: 15px;
             font-weight: 600;
+            position: relative;
+            top: -10px;
+            font-family: 'Outfit', sans-serif;
         }
 
         .form-subtitle {
-            color: #666;
+            color: var(--secText);
             font-size: 16px;
             line-height: 1.5;
             max-width: 300px;
@@ -190,7 +149,7 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #4facfe;
+            color: var(--blue);
             font-size: 18px;
             z-index: 2;
         }
@@ -207,14 +166,14 @@
 
         .form-input:focus {
             outline: none;
-            border-color: #4facfe;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+            border-color: var(--blue);
+            background: var(--mBG);
+            box-shadow: 0 0 0 3px rgba(75, 143, 195, 0.1);
         }
 
         .submit-btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--secBlue) 100%);
+            color: var(--mBG);
             border: none;
             padding: 18px 40px;
             border-radius: 12px;
@@ -224,17 +183,18 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+            box-shadow: 0 4px 15px rgba(75, 143, 195, 0.3);
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-family: 'Outfit', sans-serif;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 8px 25px rgba(75, 143, 195, 0.4);
         }
 
         .submit-btn:active {
@@ -267,7 +227,7 @@
             gap: 8px;
         }
 
-        /* Mobile Responsiveness */
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -280,48 +240,21 @@
             }
 
             .left-panel {
-                padding: 30px 20px;
-                min-height: 250px;
+                padding: 40px 20px;
+                min-height: auto;
             }
 
-            .logo {
-                width: 100px;
-                height: 100px;
+            .main-logo {
+                max-width: 180px;
                 margin-bottom: 20px;
-            }
-
-            .logo::before {
-                font-size: 40px;
-                top: -10px;
-                right: -10px;
-            }
-
-            .logo-icon {
-                width: 50px;
-                height: 50px;
-            }
-
-            .logo-icon::after {
-                font-size: 25px;
             }
 
             .right-panel {
                 padding: 30px 25px;
             }
 
-            .verification-icon-circle {
-                width: 60px;
-                height: 60px;
-            }
-
-            .verification-icon-circle::before {
-                font-size: 25px;
-                top: -6px;
-                right: -6px;
-            }
-
-            .verification-icon-circle::after {
-                font-size: 20px;
+            .verification-icon .fa-circle-check {
+                font-size: 60px;
             }
 
             .form-title {
@@ -368,7 +301,7 @@
             }
         }
 
-        /* Landscape mobile */
+      
         @media (max-width: 768px) and (orientation: landscape) {
             .container {
                 grid-template-columns: 1fr 1fr;
@@ -380,16 +313,8 @@
                 min-height: 300px;
             }
 
-            .logo {
-                width: 80px;
-                height: 80px;
-                margin-bottom: 10px;
-            }
-
-            .logo::before {
-                font-size: 30px;
-                top: -8px;
-                right: -8px;
+            .main-logo {
+                max-width: 150px;
             }
 
             .right-panel {
@@ -401,16 +326,12 @@
 <body>
     <div class="container">
         <div class="left-panel">
-            <div class="logo-container">
-                <div class="logo">
-                    <div class="logo-icon"></div>
-                </div>
-            </div>
+            <img src="/images/uniLogo.png" alt="UniLost logo" class="main-logo" loading="lazy">
         </div>
 
         <div class="right-panel">
             <div class="verification-icon">
-                <div class="verification-icon-circle"></div>
+                <i class="fa-solid fa-circle-check"></i>
             </div>
 
             <div class="form-header">
@@ -419,23 +340,23 @@
             </div>
 
             <div class="success-message" id="successMessage">
-                ✅ Verification email sent successfully!
+                <i class="fa-solid fa-circle-check"></i> Verification email sent successfully!
             </div>
 
             <div class="error-message" id="errorMessage">
-                ⚠️ Please enter a valid email address
+                <i class="fa-solid fa-triangle-exclamation"></i> Please enter a valid email address
             </div>
 
             <form id="verificationForm">
                 <div class="form-group">
                     <div class="input-container">
-                        <span class="input-icon">✉️</span>
+                        <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
                         <input type="email" class="form-input" placeholder="Email Address" required>
                     </div>
                 </div>
 
                 <button type="submit" class="submit-btn">
-                    📧 Submit
+                    <i class="fa-solid fa-envelope-open"></i> SUBMIT
                 </button>
             </form>
         </div>
@@ -444,38 +365,36 @@
     <script>
         document.getElementById('verificationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const email = this.querySelector('input[type="email"]').value;
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
-            
-            // Hide all messages first
+
+          
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
-            
-            // Simple email validation
+
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email || !emailRegex.test(email)) {
                 errorMessage.style.display = 'flex';
-                errorMessage.textContent = '⚠️ Please enter a valid email address';
+                errorMessage.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Please enter a valid email address';
                 return;
             }
-            
-            // Simulate verification process
+
+           
             const button = document.querySelector('.submit-btn');
             button.textContent = 'Sending Email...';
             button.disabled = true;
-            
+
             setTimeout(() => {
                 successMessage.style.display = 'flex';
-                successMessage.textContent = '✅ Verification email sent successfully! Check your inbox.';
-                button.textContent = '📧 Submit';
+                successMessage.innerHTML = '<i class="fa-solid fa-check"></i> Verification email sent successfully! Check your inbox.';
+                button.innerHTML = '<i class="fa-solid fa-envelope"></i> Submit';
                 button.disabled = false;
-                
-                // Clear the form
+
+             
                 this.querySelector('input[type="email"]').value = '';
-                
-                // Show additional message after success
+
                 setTimeout(() => {
                     alert('Please check your email and click the verification link to reset your password.');
                 }, 2000);
@@ -487,16 +406,17 @@
             input.addEventListener('focus', function() {
                 this.parentElement.style.transform = 'translateY(-2px)';
             });
-            
+
             input.addEventListener('blur', function() {
                 this.parentElement.style.transform = 'translateY(0)';
             });
         });
 
-        // Add subtle animation to verification icon on load
         window.addEventListener('load', function() {
-            const icon = document.querySelector('.verification-icon-circle');
-            icon.style.animation = 'slideUp 0.8s ease-out 0.3s both';
+            const icon = document.querySelector('.verification-icon .fa-circle-check');
+            if (icon) {
+               icon.style.animation = 'slideUp 0.8s ease-out 0.3s both';
+            }
         });
     </script>
 </body>
