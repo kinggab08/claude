@@ -40,16 +40,12 @@
             border-bottom: 1px solid #e0e6ed;
         }
 
-        .logo-icon {
+        .logo-icon img {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
         }
 
         .logo-text {
@@ -116,10 +112,9 @@
 
         .nav-link.active {
             background: #eff6ff;
-            border-left: 3px solid #3b82f6;
         }
 
-        .nav-icon {
+        .nav-icon img {
             width: 20px;
             height: 20px;
             opacity: 0.7;
@@ -264,9 +259,10 @@
         .logout-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #dc2626;
+            gap: 10px;
+            color: #333333;
             text-decoration: none;
+            font-family: Plus Jakarta Sans;
             font-size: 14px;
             opacity: 0.8;
             transition: opacity 0.2s ease;
@@ -364,7 +360,7 @@
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="logo">
-                <div class="logo-icon">🔍</div>
+                <div class="logo-icon"><img src="images/unilostlogo.svg" alt="logo"></div>
                 <div class="logo-text">UniLost</div>
             </div>
 
@@ -379,31 +375,31 @@
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#" class="nav-link active">
-                        <span class="nav-icon">📊</span>
+                        <span class="nav-icon"><img src="images/dashboard-icon.svg" alt=""></span>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon">🔍</span>
+                        <span class="nav-icon"><img src="images/founditem-icon.svg" alt=""></span>
                         Found Items
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon">📋</span>
+                        <span class="nav-icon"><img src="images/pendingreport-icon.svg" alt=""></span>
                         Pending Reports
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon">📝</span>
+                        <span class="nav-icon"><img src="images/pendingclaim-icon.svg" alt=""></span>
                         Pending Claim Requests
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon">👥</span>
+                        <span class="nav-icon"><img src="images/usermanagement-icon.svg" alt=""></span>
                         User Management
                     </a>
                 </li>
@@ -411,7 +407,7 @@
 
             <div class="logout-section">
                 <a href="unilost_landing_page.html" class="logout-btn">
-                    <span>←</span>
+                    <span><img src="images/logout.svg" alt=""></span>
                     Logout
                 </a>
             </div>
