@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         * {
@@ -18,10 +18,19 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
+        :root {
+            --bg: #EBF3FA;
+           --blue: #4B8FC3;
+           --secBlue: #73BDFF;
+           --mBG: #FFFFFF;
+           --mainText: #333333;
+           --secText: #828282;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--mBG);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -112,6 +121,7 @@
         }
 
         .brand-name {
+            font-family: 'Outfit', sans-serif;
             font-size: 48px;
             font-weight: bold;
             margin-bottom: 30px;
@@ -162,9 +172,9 @@
             position: relative;
         }
 
-        .input-icon img {
+        .input-icon {
             position: absolute;
-            left: 10px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: #4facfe;
@@ -180,6 +190,7 @@
             font-size: 16px;
             transition: all 0.3s ease;
             background: #f8f9fa;
+            
         }
 
         .form-input:focus {
@@ -235,10 +246,10 @@
         }
 
         .login-btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, var(--blue) 0%, var(--secBlue) 100%);
             color: white;
             border: none;
-            padding: 5px 40px;
+            padding: 18px 40px;
             border-radius: 12px;
             font-size: 18px;
             font-weight: 600;
@@ -352,8 +363,8 @@
             }
 
             .form-title {
-                font-size: 24px;
-                font-family: "Outfit", sans-serif;
+                font-size: 32px;
+                font-family: 'Outfit' ,sans-serif;
                 font-weight: 600;
             }
 
@@ -362,9 +373,8 @@
                 font-size: 16px;
             }
 
-            .input-icon img {
-                width: 18px; /* Adjust icon size */
-                height: 18px;
+            .input-icon i {
+                font-size: 16px;
             }
 
             .login-btn {
@@ -449,22 +459,24 @@
             </div>
 
             <div class="invalid-credentials" style="display: none;">
-                ⚠️ Invalid Credentials
+                <i class="fa-solid fa-triangle-exclamation"></i> Invalid Credentials
             </div>
 
             <form id="loginForm">
                 <div class="form-group">
                     <div class="input-container">
-                        <span class="input-icon"><img src="images/emailicon.svg" alt=""></span>
+                        <span class="input-icon"><i class="fa-solid fa-envelope" style="color: #4B8FC3;"></i></span>
                         <input type="email" class="form-input" placeholder="Email Address" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-container">
-                        <span class="input-icon"> <img src="images/passwordicon.svg" alt=""></span>
+                        <span class="input-icon"><i class="fa-solid fa-lock" style="color: #4B8FC3;"></i></span>
                         <input type="password" class="form-input" placeholder="Password" id="password" required>
-                        <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -476,7 +488,7 @@
                 </div>
 
                 <button type="submit" class="login-btn">
-                    <img src="images/login.svg" alt="">Login
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
                 </button>
 
                 <div class="form-links">
@@ -491,13 +503,16 @@
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
             const button = input.nextElementSibling;
+            const icon = button.querySelector('i');
             
             if (input.type === 'password') {
                 input.type = 'text';
-                button.textContent = '🙈';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             } else {
                 input.type = 'password';
-                button.textContent = '👁️';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         }
 
@@ -522,25 +537,26 @@
             
             const email = this.querySelector('input[type="email"]').value;
             const password = this.querySelector('input[type="password"]').value;
+            const invalidCredentialsDiv = document.querySelector('.invalid-credentials');
             
             // Simple validation
             if (!email || !password) {
-                document.querySelector('.invalid-credentials').style.display = 'flex';
-                document.querySelector('.invalid-credentials').textContent = '⚠️ Please fill in all fields';
+                invalidCredentialsDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Please fill in all fields';
+                invalidCredentialsDiv.style.display = 'flex';
                 return;
             }
             
             // Hide error message
-            document.querySelector('.invalid-credentials').style.display = 'none';
+            invalidCredentialsDiv.style.display = 'none';
             
             // Simulate login process
             const button = document.querySelector('.login-btn');
-            button.textContent = 'Logging in...';
+            button.innerHTML = 'Logging in...';
             button.disabled = true;
             
             setTimeout(() => {
                 alert('Login successful!');
-                button.textContent = '🚪 Login';
+                button.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login';
                 button.disabled = false;
             }, 2000);
         });
