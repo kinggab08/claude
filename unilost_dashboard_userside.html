@@ -47,15 +47,12 @@
             border-bottom: 1px solid #eee; /* Lighter border */
         }
 
-        .logo-icon {
+        .logo-icon img {
             width: 36px; /* Slightly larger */
             height: 36px;
-            background: linear-gradient(45deg, #4a90e2, #6a7ee7); /* Blue gradient */
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-weight: 700;
             font-size: 20px;
         }
@@ -97,10 +94,10 @@
         .nav-link.active {
             background-color: #e6f0ff; /* Light blue background */
             color: #4a90e2; /* Blue text */
-            font-weight: 600;
+            font-weight: 300;
         }
 
-        .nav-icon {
+        .nav-icon img {
             width: 20px;
             height: 20px;
             display: flex;
@@ -174,7 +171,7 @@
 
         .user-widget .icon {
             font-size: 20px;
-            color: #777;
+            padding-top: 5px;
         }
 
         .user-widget img {
@@ -280,7 +277,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            padding: 18px 40px; /* Larger padding */
+            padding: 10px 40px; /* Larger padding */
             background: #1877f2; /* Facebook blue */
             color: white;
             text-decoration: none;
@@ -368,7 +365,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <div class="logo-icon">🎓</div>
+                <div class="logo-icon"><img src="images/unilostlogo.svg" alt="logo"></div>
                 <div class="logo-text">UniLost</div>
             </div>
 
@@ -376,7 +373,7 @@
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#" class="nav-link active">
-                        <span class="nav-icon">🏠</span>
+                        <span class="nav-icon"><img src="images/dashboard-icon.svg" alt=""></span>
                         Dashboard
                     </a>
                 </li>
@@ -407,11 +404,11 @@
                     <h2>Good day, Juan Dela Cruz!</h2>
                 </div>
                 <div class="user-widget">
-                    <span class="icon">🔔</span>
-                    <img src="https://via.placeholder.com/40" alt="User Avatar">
+                    <span class="icon"><img src="images/notification-dashboard.svg" alt=""></span>
+                    <img src="images/profilepic.svg" alt="User Avatar">
                     <div class="user-info-header">
                         <strong>Juan Dela Cruz</strong>
-                        <span>JuanDuEmail.com</span>
+                        <span>juandelacruz@gmail.com</span>
                     </div>
                     <span class="settings-icon">⚙️</span>
                 </div>
@@ -421,7 +418,7 @@
             <div class="dashboard-cards-grid">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-icon">📦</div>
+                        <div class="card-icon"><img src="images/items-found.svg" alt=""></div>
                     </div>
                     <div class="card-number">0</div>
                     <div class="card-label">Items Found</div>
@@ -429,7 +426,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-icon">➕</div>
+                        <div class="card-icon"><img src="images/new-request.svg" alt=""></div>
                     </div>
                     <div class="card-number">0</div>
                     <div class="card-label">New Request</div>
@@ -437,7 +434,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-icon">🔄</div>
+                        <div class="card-icon"><img src="images/inprocess-request.svg" alt=""></div>
                     </div>
                     <div class="card-number">0</div>
                     <div class="card-label">In Process Request</div>
@@ -445,7 +442,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-icon">✅</div>
+                        <div class="card-icon"><img src="images/claimed-request.svg" alt=""></div>
                     </div>
                     <div class="card-number">0</div>
                     <div class="card-label">Claimed Request</div>
@@ -453,7 +450,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-icon">❌</div>
+                        <div class="card-icon"><img src="images/rejected-request.svg" alt=""></div>
                     </div>
                     <div class="card-number">0</div>
                     <div class="card-label">Rejected Request</div>
@@ -461,7 +458,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-icon">📋</div>
+                        <div class="card-icon"><img src="images/myclaim-request.svg" alt=""></div>
                     </div>
                     <div class="card-number">0</div>
                     <div class="card-label">My Claim Request</div>
@@ -471,7 +468,7 @@
             <!-- Facebook Section -->
             <div class="facebook-section">
                 <a href="#" class="facebook-btn">
-                    <span>📘</span>
+                    <span><img src="images/facebook-logo.svg" alt=""></span>
                     Visit Us On Facebook
                 </a>
             </div>
