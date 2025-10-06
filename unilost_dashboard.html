@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniLost - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -22,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
+        
         .sidebar {
             width: 280px;
             background: white;
@@ -59,7 +60,7 @@
             align-items: center;
             gap: 12px;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4B8FC3;
             border-radius: 12px;
             color: white;
             margin-bottom: 20px;
@@ -114,13 +115,15 @@
             background: #eff6ff;
         }
 
-        .nav-icon img {
+        .nav-icon {
             width: 20px;
             height: 20px;
-            opacity: 0.7;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Main Content */
+       
         .main-content {
             flex: 1;
             padding: 20px;
@@ -160,16 +163,16 @@
             font-size: 14px;
         }
 
-        .search-box::after {
-            content: '🔍';
+        .search-icon {
             position: absolute;
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
             opacity: 0.5;
+            color: #64748b;
         }
 
-        /* Dashboard Cards */
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -178,7 +181,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4B8FC3;
             color: white;
             padding: 24px;
             border-radius: 16px;
@@ -192,15 +195,15 @@
         }
 
         .stat-card.card-2 {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: #4B8FC3;
         }
 
         .stat-card.card-3 {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            background: #4B8FC3;
         }
 
         .stat-card.card-4 {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            background: #4B8FC3;
         }
 
         .stat-number {
@@ -223,7 +226,7 @@
             opacity: 0.7;
         }
 
-        /* Facebook Button */
+
         .facebook-section {
             text-align: center;
             margin: 30px 0;
@@ -249,7 +252,7 @@
             box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
         }
 
-        /* Logout */
+
         .logout-section {
             margin-top: 20px;
             padding-top: 20px;
@@ -272,7 +275,7 @@
             opacity: 1;
         }
 
-        /* Mobile Menu Toggle */
+
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -288,7 +291,7 @@
             background: #f1f5f9;
         }
 
-        /* Responsive Design */
+
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -357,7 +360,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
+
         <nav class="sidebar" id="sidebar">
             <div class="logo">
                 <div class="logo-icon"><img src="images/unilostlogo.svg" alt="logo"></div>
@@ -375,31 +378,31 @@
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#" class="nav-link active">
-                        <span class="nav-icon"><img src="images/dashboard-icon.svg" alt=""></span>
+                        <span class="nav-icon"><i class="fas fa-tachometer-alt"></i></span>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon"><img src="images/founditem-icon.svg" alt=""></span>
+                        <span class="nav-icon"><i class="fas fa-box-open"></i></span>
                         Found Items
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon"><img src="images/pendingreport-icon.svg" alt=""></span>
+                        <span class="nav-icon"><i class="fas fa-file-alt"></i></span>
                         Pending Reports
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon"><img src="images/pendingclaim-icon.svg" alt=""></span>
+                        <span class="nav-icon"><i class="fas fa-hand-holding"></i></span>
                         Pending Claim Requests
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon"><img src="images/usermanagement-icon.svg" alt=""></span>
+                        <span class="nav-icon"><i class="fas fa-users"></i></span>
                         User Management
                     </a>
                 </li>
@@ -407,7 +410,7 @@
 
             <div class="logout-section">
                 <a href="unilost_landing_page.html" class="logout-btn">
-                    <span><img src="images/logout.svg" alt=""></span>
+                    <span><i class="fas fa-sign-out-alt"></i></span>
                     Logout
                 </a>
             </div>
@@ -417,45 +420,46 @@
         <main class="main-content">
             <header class="header">
                 <h1>
-                    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
-                    📊 Dashboard
+                    <button class="mobile-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                    <i class="fas fa-chart-pie"></i> Dashboard
                 </h1>
                 <div class="search-box">
                     <input type="text" placeholder="Search...">
+                    <i class="fas fa-search search-icon"></i>
                 </div>
             </header>
 
-            <!-- Dashboard Statistics -->
+
             <div class="dashboard-grid">
                 <div class="stat-card">
-                    <div class="stat-icon">👥</div>
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
                     <div class="stat-number">100</div>
                     <div class="stat-label">Total Users</div>
                 </div>
 
                 <div class="stat-card card-2">
-                    <div class="stat-icon">🔒</div>
+                    <div class="stat-icon"><i class="fas fa-lock"></i></div>
                     <div class="stat-number">100</div>
                     <div class="stat-label">Total Lost Items</div>
                 </div>
 
                 <div class="stat-card card-3">
-                    <div class="stat-icon">✅</div>
+                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
                     <div class="stat-number">60</div>
                     <div class="stat-label">Total Found Items</div>
                 </div>
 
                 <div class="stat-card card-4">
-                    <div class="stat-icon">📋</div>
+                    <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
                     <div class="stat-number">100</div>
                     <div class="stat-label">Pending Requests</div>
                 </div>
             </div>
 
-            <!-- Facebook Section -->
+
             <div class="facebook-section">
                 <a href="#" class="facebook-btn">
-                    <span>📘</span>
+                    <i class="fab fa-facebook-f"></i>
                     Visit Us On Facebook
                 </a>
             </div>
@@ -489,7 +493,7 @@
             }
         });
 
-        // Add click handlers for navigation
+
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
